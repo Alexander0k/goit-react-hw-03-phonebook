@@ -16,6 +16,22 @@ class App extends Component{
     ],
     filter: '',
   }
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parse = JSON.parse(contacts);
+    if (parse) {
+      this.setState({ contacts: parse });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { contacts } = this.state
+    if (prevState.contacts !== contacts) {
+      localStorage.setItem("contacts", JSON.stringify(contacts))
+    }
+    
+  };
+
 
   handleChange = event => {
     const { name, value } = event.currentTarget;
